@@ -1,0 +1,15 @@
+﻿# Core scientific and data libraries
+numpy
+pandas
+scipy
+matplotlib
+
+# Machine learning
+scikit-learn
+scikit-optimize
+
+# Word embeddings
+gensim
+
+# Serialization
+pickle5  # optional, for compatibility with Python <3.8
