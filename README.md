@@ -75,26 +75,59 @@ The project compares three classical machine learning classifiers:
 | Non-linear patterns | Limited | Limited | Excellent |
 | Hyperparameter tuning | Minimal | Minimal | Significant |
 
-## Usage
+## Requirements
 
-### Installation
+```
+scikit-learn>=1.0.0
+numpy>=1.20.0
+pandas>=1.3.0
+gensim>=4.0.0
+matplotlib>=3.3.0
+```
 
+Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
+**Optional**: For word embedding features, download pre-trained Word2Vec vectors:
+- [Google News Word2Vec (3GB)](https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit?resourcekey=0-wjGZdNAUop6WykTtMip30g)
+
 ### Running the classifier
 
+**Basic usage (traditional features only):**
 ```bash
-python ner_classifier.py <training_file> <test_file> <output_file>
+python final_script.py <training_file> <test_file> <output_file> --model_name <model>
 ```
 
-**Example:**
+**Available models**: `logreg`, `NB`, `SVM`
+
+**Examples:**
+
+Train Logistic Regression (default):
 ```bash
-python ner_classifier.py data/train.conll data/test.conll results/predictions.conll
+python final_script.py data/train.conll data/test.conll results/predictions_logreg.conll
 ```
 
-This trains all three models and outputs predictions in CoNLL format.
+Train Naive Bayes:
+```bash
+python final_script.py data/train.conll data/test.conll results/predictions_nb.conll --model_name NB
+```
+
+Train SVM:
+```bash
+python final_script.py data/train.conll data/test.conll results/predictions_svm.conll --model_name SVM
+```
+
+**With word embeddings (combined features):**
+```bash
+python final_script.py data/train.conll data/test.conll results/predictions_embed.conll --embedded --language_model_path path/to/GoogleNews-vectors-negative300.bin
+```
+
+The script automatically evaluates the model and outputs:
+- Classification report (precision, recall, F1-score per entity type)
+- Confusion matrix
+- Predictions written to the output file
 
 ### Input Format (CoNLL-2003)
 
@@ -142,4 +175,4 @@ For production NER systems, consider:
 
 ---
 
-**Author**: Developed as part of Master's coursework in Natural Language Processing# Named-Entity-Recognition
+**Author**: Developed as part of Master's coursework in Natural Language Processing
