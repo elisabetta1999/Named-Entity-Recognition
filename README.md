@@ -131,20 +131,32 @@ The script automatically evaluates the model and outputs:
 
 ### Input Format (CoNLL-2003)
 
-Expected tab-separated format:
+**Original CoNLL-2003 format** (tab-separated, 4 columns):
 ```
-Token	POS	Chunk	PrevToken	NextToken	Capitalization	GoldLabel
-John	NNP	B-NP	START!!	Smith	first_letter_capitalization	B-PER
-Smith	NNP	B-NP	John	works	first_letter_capitalization	I-PER
-works	VBZ	B-VP	Smith	at	lowercase	O
-at	IN	B-PP	works	Google	lowercase	O
-Google	NNP	B-NP	at	.	first_letter_capitalization	B-ORG
+Token	POS	Chunk	NER_Label
+EU	NNP	B-NP	B-ORG
+rejects	VBZ	B-VP	O
+German	JJ	B-NP	B-MISC
+call	NN	I-NP	O
+to	TO	B-VP	O
+boycott	VB	I-VP	O
+British	JJ	B-NP	B-MISC
+lamb	NN	I-NP	O
+.	.	O	O
 ```
 
-The last column contains entity labels in BIO format:
+The script automatically extracts additional features (capitalization patterns, previous/next tokens) during processing.
+
+**Entity labels use BIO format:**
 - `B-X`: Beginning of entity type X
-- `I-X`: Inside/continuation of entity type X
+- `I-X`: Inside/continuation of entity type X  
 - `O`: Outside any entity (not an entity)
+
+**Entity types in CoNLL-2003:**
+- `PER`: Person names
+- `ORG`: Organizations
+- `LOC`: Locations
+- `MISC`: Miscellaneous entities
 
 ## Key Implementation Details
 
